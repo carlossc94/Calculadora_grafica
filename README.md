@@ -13,3 +13,7 @@ Adicionalmente tu usuario podrá crear un gráfico de barras estático de 5 seri
 * El usuario podrá borrar todo y volver a empezar con otros valores cuantas veces
 desee.
 * Los valores y gráficos no deben ser almacenados.
+
+## Deployment Page
+
+https://eager-albattani-006426.netlify.app/
