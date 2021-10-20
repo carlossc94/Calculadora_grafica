@@ -87,7 +87,7 @@ const RenderInitial = (x, y, offset) => {
   myChart.update()
 }
 
-const changeScaleConfig = (scales, data, offset) => {
+const UpdateScale = (scales, data, offset) => {
   scales.x.min = offset * -1 
   scales.x.max = offset
   scales.y.min = offset * -1
@@ -95,21 +95,31 @@ const changeScaleConfig = (scales, data, offset) => {
 }
 
 addPoint.addEventListener('click', () => {
-  myChart.data.datasets[0].data.push({
-    x: parseFloat(x.value),
-    y: parseFloat(y.value),
-  })
+  contador = myChart.data.datasets[0].data.length
+  if(contador < 5){
+    myChart.data.datasets[0].data.push({
+      x: parseFloat(x.value),
+      y: parseFloat(y.value),
+    })
+  }else{
+    Swal.fire({
+      title: 'Error!',
+      text: 'Solo se puede ingresar 5 valores, restablece el plano',
+      icon: 'error',
+      confirmButtonText: 'Aceptar'
+    })
+  }
 
   xAux=Math.abs(parseFloat(x.value))
   yAux=Math.abs(parseFloat(y.value))
-  console.log(xAux + ","+yAux)
+
   if(xAux > offset || yAux > offset){
     if(xAux > yAux){
       offset = parseInt(xAux) + 5
     }else{
       offset = parseInt(yAux) + 5
     }
-    changeScaleConfig(config.options.scales, myChart.data.datasets[0].data, offset)
+    UpdateScale(config.options.scales, myChart.data.datasets[0].data, offset)
   }
     
 
