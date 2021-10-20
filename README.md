@@ -16,4 +16,4 @@ desee.
 
 ## Deployment Page
 
-https://eager-albattani-006426.netlify.app/
+https://blissful-wiles-7a102f.netlify.app
