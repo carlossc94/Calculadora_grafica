@@ -4,6 +4,7 @@ let addPoint = document.getElementById('addPoint')
 let deletePoints = document.getElementById('deletePoints')
 let planoCartesiano = document.getElementById('planoCartesiano')
 let grafica = document.getElementById('grafica')
+let offset = 10 
 
 let data = {
   datasets: [
@@ -87,14 +88,10 @@ const RenderInitial = (x, y, offset) => {
 }
 
 const changeScaleConfig = (scales, data, offset) => {
-
-  scales.x.min = Math.min(...data.map((item) => item.x)) - offset
-
-  scales.x.max = Math.max(...data.map((item) => item.x)) + offset
-
-  scales.y.min = Math.min(...data.map((item) => item.y)) - offset
-
-  scales.y.max = Math.max(...data.map((item) => item.y)) + offset
+  scales.x.min = offset * -1 
+  scales.x.max = offset
+  scales.y.min = offset * -1
+  scales.y.max = offset
 }
 
 addPoint.addEventListener('click', () => {
@@ -103,13 +100,25 @@ addPoint.addEventListener('click', () => {
     y: parseFloat(y.value),
   })
 
-  //changeScaleConfig(config.options.scales, myChart.data.datasets[0].data, 5)
+  xAux=Math.abs(parseFloat(x.value))
+  yAux=Math.abs(parseFloat(y.value))
+  console.log(xAux + ","+yAux)
+  if(xAux > offset || yAux > offset){
+    if(xAux > yAux){
+      offset = parseInt(xAux) + 5
+    }else{
+      offset = parseInt(yAux) + 5
+    }
+    changeScaleConfig(config.options.scales, myChart.data.datasets[0].data, offset)
+  }
+    
 
   myChart.update()
 })
 
 deletePoints.addEventListener('click', () => {
-  RenderInitial(0, 0, 10)
+  offset= 10
+  RenderInitial(0, 0, offset)
 })
 
-RenderInitial(0, 0, 10)
+RenderInitial(0, 0, offset)
